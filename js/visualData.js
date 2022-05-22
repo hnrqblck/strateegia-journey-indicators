@@ -1,4 +1,5 @@
-import { gatherGraphData } from "../../js/data/graphData.js";
+import { gatherGraphData } from "./data/graphData.js";
+import { getAllProjects } from "https://unpkg.com/strateegia-api/strateegia-api.js";
 
 const access_token = localStorage.getItem("strateegiaAccessToken");
 console.log(localStorage);
