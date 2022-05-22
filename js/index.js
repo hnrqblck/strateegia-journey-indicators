@@ -14,7 +14,7 @@ function login() {
         auth(username, password).then((token) => {
             console.log(token);
             localStorage.setItem("strateegiaAccessToken", token);
-            location.href = "/main.html";
+            location.href = "main.html";
         });
     });
 }
