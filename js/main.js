@@ -8,7 +8,7 @@ if (accessToken == 'undefined') {
     window.alert("Authentication failed: No access token");
 } else {
     console.log(accessToken);
-    initializeProjectList(accessToken);
+    // initializeProjectList(accessToken);
     getUser(accessToken).then((user) => {
         localStorage.setItem("userId", user.id);
     });
