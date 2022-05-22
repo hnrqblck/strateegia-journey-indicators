@@ -6,7 +6,7 @@ console.log(localStorage);
 
 const queryString = window.location.search;
 const urlParams = new URLSearchParams(queryString);
-let global_selected_mode = urlParams.get('mode');
+const global_selected_mode = urlParams.get('mode') || "projeto";
 console.log("MODE IS: " + global_selected_mode);
 
 let cData = {
