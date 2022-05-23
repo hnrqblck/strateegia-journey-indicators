@@ -10,6 +10,14 @@ const urlParams = new URLSearchParams(queryString);
 const global_selected_mode = urlParams.get('mode') || "projeto";
 console.log("MODE IS: " + global_selected_mode);
 
+if (global_selected_mode === "usuário") {
+    d3.select("#applet-title").text("redes de pessoas");
+} else if (global_selected_mode === "projeto") {
+    d3.select("#applet-title").text("redes de interações");
+} else if (global_selected_mode === "indicadores") {
+    d3.select("#applet-title").text("indicadores da jornada");
+}
+
 let cData = {
     "nodes": [],
     "links": []
