@@ -33,9 +33,19 @@
       <select class="col-6 form-select" aria-label="Default select example" id="projects-list"></select>
       <span class="col-3 input-group-text"><a target="_blank" id="project-link">link para jornada<a></span>
     </div>
-    <div class="d-flex justify-content-center p-3">
-      <div class="spinner-border" role="status" id="loading-spinner">
-        <span class="visually-hidden">Loading...</span>
+    <div class="row input-group mb-2">
+      <div class="d-flex justify-content-end">
+        <div>
+          <button type="button" class="btn btn-secondary btn-sm" onclick="saveAsSVG()" id="export-svg">svg</button>
+          <button type="button" class="btn btn-secondary btn-sm" onclick="saveJson()" id="export-json">json</button>
+        </div>
+      </div>
+    </div>
+    <div id="loading-spinner">
+      <div class="d-flex justify-content-center mt-3">
+        <div class="spinner-border" role="status">
+          <span class="visually-hidden">Loading...</span>
+        </div>
       </div>
     </div>
     <div class="row mt-3" id="statistics">
@@ -77,7 +87,6 @@
   <script type="module" src="./js/main.js"></script>
   <script src="https://d3js.org/d3.v6.min.js"></script>
   <script type="module" src="https://unpkg.com/strateegia-api/strateegia-api.js"></script>
-  <script type="module" src="./js/project-list.js"></script>
   <script type="module" src="https://cdn.jsdelivr.net/npm/jsonpath-plus@6.0.1/src/jsonpath.js"></script>
   <script type="module" src="./js/utils/d3functions.js"></script>
 

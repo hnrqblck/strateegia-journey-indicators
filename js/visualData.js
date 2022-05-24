@@ -18,12 +18,12 @@ if (global_selected_mode === "usuário") {
     d3.select("#applet-title").text("indicadores da jornada");
 }
 
-let cData = {
+export let cData = {
     "nodes": [],
     "links": []
 };
 
-let fData = {};
+export let fData = {};
 
 let counter = [
     { "id": "users", "title": "usuários", "quant": 0, "color": "#636c77" },
@@ -51,7 +51,7 @@ function initializeProjectList() {
             }
             for (let j = 0; j < currentLab.projects.length; j++) {
                 const project = currentLab.projects[j];
-                console.log(`${currentLab.lab.name} -> ${project.title}`);
+                //console.log(`${currentLab.lab.name} -> ${project.title}`);
                 listProjects.push({
                     "id": project.id,
                     "title": project.title,
@@ -137,6 +137,7 @@ async function drawProject(projectId, s_mode) {
 
     cData = await gatherGraphData(access_token, projectId, selected_mode);
     console.log(cData);
+    setDataForExport(cData);
 
     if (selected_mode !== "indicadores") {
         initializeGraph();
@@ -153,16 +154,13 @@ async function drawProject(projectId, s_mode) {
 
 }
 
-
-
-
 /* 
     =============================
     Functions for manipulating the graph
     =============================
  */
 
-function commonUpdate() {
+function commonFilterAction() {
     const filteredData = applyFilters(cData);
     fData = filteredData;
     countStatistics(fData);
@@ -171,13 +169,13 @@ function commonUpdate() {
 }
 
 function initializeGraph() {
-    const filteredData = commonUpdate();
+    const filteredData = commonFilterAction();
     initializeSimulation(filteredData.nodes, filteredData.links);
     updateAll(filteredData.links);
 }
 
 function updateGraph() {
-    const filteredData = commonUpdate();
+    const filteredData = commonFilterAction();
     updateAll(filteredData.links);
 }
 
