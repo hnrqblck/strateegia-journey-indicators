@@ -311,7 +311,8 @@ function countStatistics(input_data) {
     if (selected_mode === "usuário" || selected_mode === "projeto") {
         d3.select("#indicators").style("display", "none");
         d3.select("#stat_list").style("display", "block");
-        d3.select("#graph_view").style("display", "block");
+        d3.select("#graph-view").style("display", "block");
+        d3.select("#main_svg").style("display", "block");
         let ul_ = d3.select("#stat_list")
             .selectAll("li")
             .data(data, d => d.id);
@@ -330,7 +331,8 @@ function countStatistics(input_data) {
         // Make sure the list is visible
         d3.select("#indicators").style("display", "block");
         d3.select("#stat_list").style("display", "none");
-        d3.select("#graph_view").style("display", "none");
+        d3.select("#graph-view").style("display", "none");
+        d3.select("#main_svg").style("display", "none");
 
 
         let usuarios = data.find(d => d.id === "users").quant;
