@@ -194,7 +194,7 @@ function buildGraph(data_nodes, data_links) {
     node_group
         .append("text")
         .text(function (d) {
-            return d.id;
+            return d.title;
         })
         .attr('x', 6)
         .attr('y', 3)
