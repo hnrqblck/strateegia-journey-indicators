@@ -38,51 +38,6 @@ let counter = [
 
 let filters = {};
 
-async function drawProject(projectId, s_mode) {
-
-    cData = {
-        "nodes": [],
-        "links": []
-    }
-
-    fData = {
-        "nodes": [],
-        "links": []
-    }
-
-    let promisses = [];
-
-    const selected_mode = s_mode;
-
-    if (selected_mode === "usuário") {
-        filters = {
-            group: group => ["comment", "reply", "agreement", "users", "user"].includes(group),
-            // group: group => ["project", "map", "kit", "question", "comment", "reply", "agreement", "users", "user"].includes(group),
-        };
-    } else if (selected_mode === "projeto") {
-        filters = {
-            // group: group => ["comment", "reply", "agreement", "users", "user"].includes(group),
-            group: group => ["project", "map", "divpoint", "question", "comment", "reply", "agreement"].includes(group),
-        };
-    } else if (selected_mode === "indicadores") {
-        filters = {
-            group: group => ["project", "map", "divpoint", "question", "comment", "reply", "agreement", "users", "user"].includes(group),
-        };
-    }
-
-    cData = await gatherGraphData(access_token, projectId, selected_mode);
-    console.log(cData);
-
-    if (selected_mode !== "indicadores") {
-        initializeGraph();
-    } else {
-        const filteredData = applyFilters(cData);
-        fData = filteredData;
-        countStatistics(fData);
-    }
-
-}
-
 function initializeProjectList() {
     getAllProjects(access_token).then(async labs => {
         console.log("getAllProjects()");
@@ -142,6 +97,63 @@ function initializeProjectList() {
         drawProject(defaultSelectedProject, global_selected_mode);
     });
 }
+
+async function drawProject(projectId, s_mode) {
+
+    d3.select("#loading-spinner").style("display", "block");
+    d3.select("#graph-view").style("display", "none");
+    d3.select("#statistics").style("display", "none");
+    console.log("start loading... %o", new Date());
+
+    cData = {
+        "nodes": [],
+        "links": []
+    }
+
+    fData = {
+        "nodes": [],
+        "links": []
+    }
+
+    let promisses = [];
+
+    const selected_mode = s_mode;
+
+    if (selected_mode === "usuário") {
+        filters = {
+            group: group => ["comment", "reply", "agreement", "users", "user"].includes(group),
+            // group: group => ["project", "map", "kit", "question", "comment", "reply", "agreement", "users", "user"].includes(group),
+        };
+    } else if (selected_mode === "projeto") {
+        filters = {
+            // group: group => ["comment", "reply", "agreement", "users", "user"].includes(group),
+            group: group => ["project", "map", "divpoint", "question", "comment", "reply", "agreement"].includes(group),
+        };
+    } else if (selected_mode === "indicadores") {
+        filters = {
+            group: group => ["project", "map", "divpoint", "question", "comment", "reply", "agreement", "users", "user"].includes(group),
+        };
+    }
+
+    cData = await gatherGraphData(access_token, projectId, selected_mode);
+    console.log(cData);
+
+    if (selected_mode !== "indicadores") {
+        initializeGraph();
+    } else {
+        const filteredData = applyFilters(cData);
+        fData = filteredData;
+        countStatistics(fData);
+    }
+
+    d3.select("#loading-spinner").style("display", "none");
+    d3.select("#graph-view").style("display", "block");
+    d3.select("#statistics").style("display", "block");
+    console.log("stop loading... %o", new Date());
+
+}
+
+
 
 
 /* 
