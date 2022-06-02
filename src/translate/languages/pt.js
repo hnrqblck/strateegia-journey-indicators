@@ -28,7 +28,9 @@ const messages = {
                 p10_1: 'interações ',
                 p11bold: 'engajamento nas divergências ' 
             },
-            
+            mapList: {
+                list: 'todos'
+            }
         }
     }
 };

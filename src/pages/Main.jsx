@@ -3,16 +3,18 @@ import { useEffect, useState } from "react";
 import * as api from "strateegia-api";
 import JourneysIndicators from "../components/JourneysIndicators";
 import Loading from "../components/Loading";
+import MapList from "../components/MapList";
 import ProjectList from "../components/ProjectList";
-import { saveAs } from "file-saver";
 import { i18n } from "../translate/i18n";
 
 
 export default function Main() {
   const [selectedProject, setSelectedProject] = useState("");
+  const [selectedMap, setSelectedMap] = useState("");
   const [isLoading, setIsLoading] = useState(false);
   const [accessToken, setAccessToken] = useState("");
   const [projectData, setProjectData] = useState(null);
+  const [mapDetails, setMapDetails] = useState(null);
 
   const handleSelectChange = (e) => {
     setSelectedProject(e.target.value);
@@ -29,9 +31,25 @@ export default function Main() {
     fetchMapList();
   };
 
+  const handleMapSelectChange = (e) => {
+    setSelectedMap(e.target.value);
+    if(e.target.value !== 0) setMapDetails(e.target.value);
+    // async function fetchMapList() {
+    //   try {
+    //     const project = await api.getProjectById(accessToken, e.target.value);
+    //     setProjectData(project);
+    //     setIsLoading(false);
+    //   } catch (error) {
+    //     console.log(error);
+    //   }
+    // }
+    // fetchMapList();
+  };
+
   useEffect(() => {
     setAccessToken(localStorage.getItem("accessToken"));
   }, []);
+
 
   return (
     <Box padding={10}>
@@ -53,9 +71,12 @@ export default function Main() {
           {i18n.t('main.link')}
         </Link>
       </Box>
-      
+        <MapList
+          projectId={selectedProject}
+          handleSelectChange={handleMapSelectChange}
+        />
       <Loading active={isLoading} /> 
-      <JourneysIndicators project={projectData}/>
+      <JourneysIndicators project={projectData} mapId={mapDetails}/>
     </Box>
   );
 }
