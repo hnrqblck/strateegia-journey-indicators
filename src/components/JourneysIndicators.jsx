@@ -1,13 +1,17 @@
 import React from 'react';
-import { Box, Text, Heading, Button } from "@chakra-ui/react";
+import { Box, Text, Heading, Button } from '@chakra-ui/react';
 import { fetchJourneyStatistics } from '../utils/requestFunctions';
 import { saveFile } from './FileContent';
-import { saveAs } from "file-saver";
-import { Packer } from "docx";
-import { i18n } from "../translate/i18n";
+import { saveAs } from 'file-saver';
+import { Packer } from 'docx';
+import { CSVLink } from 'react-csv';
+import { i18n } from '../translate/i18n';
+import { ExportsButtons } from './ExportsButtons';
 
 const JourneysIndicators = ({project}) => {
     const [journeyStatistics, setJourneyStatistics] = React.useState(null);
+    const [doc, setDoc] = React.useState(null);
+    const [csv, setCsv] = React.useState({headers: '', data: ''});
     const accessToken = localStorage.getItem('accessToken');
 
     const usersCount = project?.users.length;
@@ -38,12 +42,7 @@ const JourneysIndicators = ({project}) => {
     
 
     React.useEffect(() => {
-        console.log(journeyStatistics)
-        
-    }, [journeyStatistics]);
-
-    function saveDocx() {
-        const  doc = saveFile(
+        const {doc, csvHeaders, csvData} = saveFile(
             activeUsersEngagement,
             usersCount, 
             inactiveUsers, 
@@ -58,39 +57,32 @@ const JourneysIndicators = ({project}) => {
             expectedInteraction,
             divergenceEngagement
         );
-        
+        setDoc(doc);
+        setCsv({headers: csvHeaders, data: csvData});
+
+    }, [journeyStatistics]);
+
+    function saveDocx() {
         Packer.toBlob(doc).then((blob) => {
             console.log(blob);
-            saveAs(blob, "indicadores da jornada.docx");
-            console.log("Document created successfully");
+            saveAs(blob, 'indicadores da jornada.docx');
+            console.log('Document created successfully');
         });
     }
+
+    React.useEffect(() => {
+        console.log(csv)
+    }, [csv]);
     
 
     return (
       <>
-        <Box display='flex' justifyContent='flex-end' m='4px'>
-            <Button
-                size="xs"
-                fontSize="14px"
-                fontWeight="400"
-                bg="#6c757d"
-                color="#fff"
-                borderRadius="3px"
-                _hover={{
-                    bg: "#5C636A",
-                }}
-                paddingBottom={"4px"}
-                onClick={saveDocx}
-                disabled={project ? false : true}
-            >
-                docx
-            </Button>
-        </Box>
+        <ExportsButtons project={project} saveFile={saveDocx} data={csv.data} headers={csv.headers || ''}/>
         <Heading as="h3" size="lg" mb={12} mt={3} >
             {i18n.t('main.heading')}
         </Heading>
         {project &&
+        <>
             <Box>
                 <Text>{i18n.t('main.p1p4p7p11_1')} <b>{i18n.t('main.p1bold1')}</b> {i18n.t('main.p1_2')}<b> {activeUsersEngagement.toFixed(2)}%</b></Text>
                 <br/>
@@ -110,6 +102,7 @@ const JourneysIndicators = ({project}) => {
                 <br/>
                 <Text>{i18n.t('main.p1p4p7p11_1')} <b>{i18n.t('main.p11bold')}</b> {i18n.t('main.p4p7p11_3')} <b>{divergenceEngagement.toFixed(2)}%</b></Text>
             </Box>
+      </>
         }
       </>
     
