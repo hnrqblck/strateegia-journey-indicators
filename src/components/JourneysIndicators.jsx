@@ -14,7 +14,7 @@ const JourneysIndicators = ({project, mapId}) => {
     const [csv, setCsv] = React.useState({headers: '', data: ''});
     const accessToken = localStorage.getItem('accessToken');
 
-    const usersCount = project?.users.length;
+    const usersCount = project?.users?.length;
     const activeUsers = statistics?.people_active_count
     const inactiveUsers = usersCount - activeUsers;
     const activeUsersEngagement = Math.round(statistics?.participation * 100);
@@ -35,8 +35,7 @@ const JourneysIndicators = ({project, mapId}) => {
     
 // 
     React.useEffect(() => {
-        console.log(mapId)
-        mapId ? 
+        mapId && mapId != 0 ? 
             fetchMapStatistics(accessToken, mapId)
                 .then(stats => setStatistics(stats))
         :
@@ -45,7 +44,6 @@ const JourneysIndicators = ({project, mapId}) => {
     }, [project, mapId]);
 
     React.useEffect(() => {
-        console.log(statistics)
     }, [statistics]);
     
 
@@ -72,14 +70,11 @@ const JourneysIndicators = ({project, mapId}) => {
 
     function saveDocx() {
         Packer.toBlob(doc).then((blob) => {
-            console.log(blob);
             saveAs(blob, 'indicadores da jornada.docx');
-            console.log('Document created successfully');
         });
     }
 
     React.useEffect(() => {
-        console.log(csv)
     }, [csv]);
     
 
@@ -89,7 +84,7 @@ const JourneysIndicators = ({project, mapId}) => {
         <Heading as="h3" size="lg" mb={12} mt={3} >
             {i18n.t('main.heading')}
         </Heading>
-        {project &&
+        {project && 
         <>
             <Box>
                 <Text>{i18n.t('main.p1p4p7p11_1')} <b>{i18n.t('main.p1bold1')}</b> {i18n.t('main.p1_2')}<b> {activeUsersEngagement.toFixed(2)}%</b></Text>

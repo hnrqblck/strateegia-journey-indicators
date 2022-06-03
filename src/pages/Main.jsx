@@ -33,7 +33,7 @@ export default function Main() {
 
   const handleMapSelectChange = (e) => {
     setSelectedMap(e.target.value);
-    if(e.target.value !== 0) setMapDetails(e.target.value);
+    setMapDetails(e.target.value);
     // async function fetchMapList() {
     //   try {
     //     const project = await api.getProjectById(accessToken, e.target.value);
@@ -50,6 +50,10 @@ export default function Main() {
     setAccessToken(localStorage.getItem("accessToken"));
   }, []);
 
+  useEffect(() => {
+    console.log('sp', selectedProject == '')
+  }, [selectedProject]);
+
 
   return (
     <Box padding={10}>
@@ -58,7 +62,7 @@ export default function Main() {
         <Link 
           pointerEvents={selectedProject ? '' : 'none'}
           // _disabled={selectedProject ? false : true}
-          href={`https://app.strateegia.digital/journey/${selectedProject}/map/${projectData?.maps[0].id}`}
+          // href={`https://app.strateegia.digital/journey/${selectedProject}/map/${projectData?.maps[0].id}`}
           target='_blank'
           bg='#E9ECEF'
           borderRadius={' 0 6px 6px 0 '}
