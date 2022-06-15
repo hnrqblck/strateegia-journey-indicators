@@ -10,6 +10,7 @@ const messages = {
                 link: 'link para a jornada',
                 heading: 'indicadores da jornada', 
                 placeholder: 'escolha o projeto', 
+                placeholderMap: 'escolha o mapa', 
 
                 p1p4p7p11_1: 'índice de ',
                 p1_2: 'na jornada ',

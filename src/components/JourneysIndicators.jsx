@@ -6,6 +6,7 @@ import { saveAs } from 'file-saver';
 import { Packer } from 'docx';
 import { CSVLink } from 'react-csv';
 import { i18n } from '../translate/i18n';
+import { fetchStatistics } from './statistics';
 import { ExportsButtons } from './ExportsButtons';
 
 const JourneysIndicators = ({project, mapId}) => {
@@ -33,19 +34,13 @@ const JourneysIndicators = ({project, mapId}) => {
 
     const divergenceEngagement = (questionsEngagement + debateEngagement) / 2;
     
-// 
     React.useEffect(() => {
-        mapId && mapId != 0 ? 
-            fetchMapStatistics(accessToken, mapId)
-                .then(stats => setStatistics(stats))
-        :
-            fetchJourneyStatistics(accessToken, project?.id)
-                .then(stats => setStatistics(stats))
+        async function getStats() {
+            const stats = await fetchStatistics(accessToken, mapId, project);
+            setStatistics(stats)
+        }
+        getStats();
     }, [project, mapId]);
-
-    React.useEffect(() => {
-    }, [statistics]);
-    
 
     React.useEffect(() => {
         const {doc, csvHeaders, csvData} = saveFile(
@@ -84,7 +79,7 @@ const JourneysIndicators = ({project, mapId}) => {
         <Heading as="h3" size="lg" mb={12} mt={3} >
             {i18n.t('main.heading')}
         </Heading>
-        {project && 
+        {mapId && 
         <>
             <Box>
                 <Text>{i18n.t('main.p1p4p7p11_1')} <b>{i18n.t('main.p1bold1')}</b> {i18n.t('main.p1_2')}<b> {activeUsersEngagement.toFixed(2)}%</b></Text>
