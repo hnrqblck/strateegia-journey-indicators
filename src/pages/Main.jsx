@@ -9,7 +9,7 @@ import { i18n } from "../translate/i18n";
 
 
 export default function Main() {
-  const [selectedProject, setSelectedProject] = useState("");
+  const [selectedProject, setSelectedProject] = useState(null);
   const [selectedMap, setSelectedMap] = useState(null);
   const [isLoading, setIsLoading] = useState(false);
   const [accessToken, setAccessToken] = useState("");
@@ -28,7 +28,7 @@ export default function Main() {
         console.log(error);
       }
     }
-    selectedMap(null)
+    setSelectedMap(null)
     fetchMapList();
   };
 
@@ -48,7 +48,7 @@ export default function Main() {
         <Link 
           pointerEvents={selectedProject ? '' : 'none'}
           _disabled={selectedProject ? false : true}
-          href={selectedProject.length > 0 ? `https://app.strateegia.digital/journey/${selectedProject}/map/${projectData?.maps[0].id}` : '' }
+          href={selectedProject?.length > 0 ? `https://app.strateegia.digital/journey/${selectedProject}/map/${projectData?.maps[0].id}` : '' }
           target='_blank'
           bg='#E9ECEF'
           borderRadius={' 0 6px 6px 0 '}

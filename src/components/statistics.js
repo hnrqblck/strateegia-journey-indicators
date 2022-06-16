@@ -44,7 +44,7 @@ function calculateStastics(acc, {
 
 function calculateStatisticsMean(stats, mapId) {
     const allMapsIds = mapId.length;
-    const getMean = (key) => (stats[key] / allMapsIds).toFixed(2)
+    const getMean = (key) => (stats[key] / allMapsIds);
     const meanStatistics = {
       'people_active_count': getMean('people_active_count'),
       'participation': getMean('participation'),

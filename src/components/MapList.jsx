@@ -1,5 +1,4 @@
 import { useState, useEffect } from 'react';
-// import { Select } from '@chakra-ui/react';
 import * as api from 'strateegia-api';
 import { i18n } from "../translate/i18n";
 import Select from 'react-select';
@@ -18,7 +17,7 @@ export default function MapList({ projectId, handleSelectChange }) {
         
         const maps = project.maps;
         const allOption = {id: 0, title: i18n.t('mapList.list')};
-        maps.unshift(allOption);
+        maps?.length > 1 && maps.unshift(allOption);
         
         const mapData = [];
         maps?.map(mapItem => {

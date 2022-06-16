@@ -37,16 +37,16 @@ export function saveFile(
         const csvData = [
             {
                 users: usersCount,
-                inactiveUsers: inactiveUsers,
+                inactiveUsers: inactiveUsers?.toFixed(2),
                 activeUsersEngagement: activeUsersEngagement.toFixed(2) + '%',
-                questionsCount: questionsCount,
-                answersCount: answersCount,
-                expectedComments: expectedComments,
+                questionsCount: questionsCount?.toFixed(2),
+                answersCount: answersCount?.toFixed(2),
+                expectedComments: expectedComments?.toFixed(2),
                 questionsEngagement: questionsEngagement.toFixed(2) + '%',
-                commentsCount: commentsCount,
-                agreementsCount: agreementsCount,
-                interactionsCount: interactionsCount,
-                expectedInteraction: expectedInteraction,
+                commentsCount: commentsCount?.toFixed(2),
+                agreementsCount: agreementsCount?.toFixed(2),
+                interactionsCount: interactionsCount?.toFixed(2),
+                expectedInteraction: expectedInteraction?.toFixed(2),
                 debateEngagement: debateEngagement.toFixed(2) + '%',
                 divergenceEngagement: divergenceEngagement.toFixed(2) + '%',
             }
@@ -151,7 +151,7 @@ export function saveFile(
                             style: "normalPara",
                             children: [
                                 new TextRun({
-                                    text: inactiveUsers,
+                                    text: inactiveUsers?.toFixed(2),
                                     bold: false,
                                 }),
                                 ,
@@ -185,7 +185,7 @@ export function saveFile(
                             style: "normalPara",
                             children: [
                                 new TextRun({
-                                    text: questionsCount,
+                                    text: questionsCount?.toFixed(2),
                                     bold: false,
                                 }),
                             ]
@@ -196,7 +196,7 @@ export function saveFile(
                             style: "normalPara",
                             children: [
                                 new TextRun({
-                                    text: answersCount,
+                                    text: answersCount?.toFixed(2),
                                     bold: false,
                                 }),
                                 new TextRun({
@@ -204,7 +204,7 @@ export function saveFile(
                                     bold: false,
                                 }),
                                 new TextRun({
-                                    text: expectedComments,
+                                    text: expectedComments.toFixed(2),
                                     bold: false,
                                 }),
                                 new TextRun({
@@ -242,7 +242,7 @@ export function saveFile(
                             style: "normalPara",
                             children: [
                                 new TextRun({
-                                    text: commentsCount,
+                                    text: commentsCount?.toFixed(2),
                                     bold: false,
                                 }),
                             ]
@@ -253,7 +253,7 @@ export function saveFile(
                             style: "normalPara",
                             children: [
                                 new TextRun({
-                                    text: agreementsCount,
+                                    text: agreementsCount?.toFixed(2),
                                     bold: false,
                                 }),
                             ]
@@ -264,7 +264,7 @@ export function saveFile(
                             style: "normalPara",
                             children: [
                                 new TextRun({
-                                    text: interactionsCount,
+                                    text: interactionsCount.toFixed(2),
                                     bold: false,
                                 }),
                                 new TextRun({
@@ -272,7 +272,7 @@ export function saveFile(
                                     bold: false,
                                 }),
                                 new TextRun({
-                                    text: expectedInteraction,
+                                    text: expectedInteraction.toFixed(2),
                                     bold: false,
                                 }),
                                 new TextRun({

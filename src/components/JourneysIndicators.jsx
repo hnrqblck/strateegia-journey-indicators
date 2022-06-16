@@ -39,7 +39,7 @@ const JourneysIndicators = ({project, mapId}) => {
             const stats = await fetchStatistics(accessToken, mapId, project);
             setStatistics(stats)
         }
-        getStats();
+        mapId !== null && getStats();
     }, [project, mapId]);
 
     React.useEffect(() => {
@@ -85,22 +85,22 @@ const JourneysIndicators = ({project, mapId}) => {
                 <Text>{i18n.t('main.p1p4p7p11_1')} <b>{i18n.t('main.p1bold1')}</b> {i18n.t('main.p1_2')}<b> {activeUsersEngagement.toFixed(2)}%</b></Text>
                 <br/>
                 <Text>{i18n.t('main.p2')} {usersCount}</Text>
-                <Text>{i18n.t('main.p3')} {inactiveUsers}</Text>
+                <Text>{i18n.t('main.p3')} {inactiveUsers.toFixed(2)}</Text>
                 <br/>
                 <Text>{i18n.t('main.p1p4p7p11_1')} <b>{i18n.t('main.p4bold1')}</b> {i18n.t('main.p4p7p11_3')} 
                     <b>{isNaN(questionsEngagement) ? '0.00' : questionsEngagement.toFixed(2)}%</b>
                 </Text>
                 <br/>
-                <Text>{i18n.t('main.p5')} {questionsCount}</Text>
-                <Text>{i18n.t('main.p6_1')} {answersCount} {i18n.t('main.p6p10_2')} {expectedComments} {i18n.t('main.p6p10_3')}</Text>
+                <Text>{i18n.t('main.p5')} {questionsCount?.toFixed(2)}</Text>
+                <Text>{i18n.t('main.p6_1')} {answersCount?.toFixed(2)} {i18n.t('main.p6p10_2')} {expectedComments?.toFixed(2)} {i18n.t('main.p6p10_3')}</Text>
                 <br/>
                 <Text>{i18n.t('main.p1p4p7p11_1')} <b>{i18n.t('main.p7bold')}</b> {i18n.t('main.p4p7p11_3')} 
                     <b>{isNaN(debateEngagement) ? '0.00' : debateEngagement.toFixed(2)}%</b>
                 </Text>
                 <br/>
-                <Text>{i18n.t('main.p8')} {commentsCount}</Text>
-                <Text>{i18n.t('main.p9')} {agreementsCount}</Text>
-                <Text>{i18n.t('main.p10_1')} {interactionsCount} {i18n.t('main.p6p10_2')} {expectedInteraction} {i18n.t('main.p6p10_3')}</Text>
+                <Text>{i18n.t('main.p8')} {commentsCount?.toFixed(2)}</Text>
+                <Text>{i18n.t('main.p9')} {agreementsCount?.toFixed(2)}</Text>
+                <Text>{i18n.t('main.p10_1')} {interactionsCount?.toFixed(2)} {i18n.t('main.p6p10_2')} {expectedInteraction?.toFixed(2)} {i18n.t('main.p6p10_3')}</Text>
                 <br/>
                 <Text>{i18n.t('main.p1p4p7p11_1')} <b>{i18n.t('main.p11bold')}</b> {i18n.t('main.p4p7p11_3')} 
                     <b>{isNaN(divergenceEngagement) ? '0.00' : divergenceEngagement.toFixed(2)}%</b>
