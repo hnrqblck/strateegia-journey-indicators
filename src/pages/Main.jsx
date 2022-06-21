@@ -14,7 +14,6 @@ export default function Main() {
   const [isLoading, setIsLoading] = useState(false);
   const [accessToken, setAccessToken] = useState("");
   const [projectData, setProjectData] = useState(null);
-  // const [mapDetails, setMapDetails] = useState(null);
 
   const handleSelectChange = (e) => {
     setSelectedProject(e.target.value);
