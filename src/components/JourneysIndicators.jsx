@@ -86,7 +86,7 @@ const JourneysIndicators = ({project, mapId}) => {
         <Heading as="h3" size="lg" mb={12} mt={3} >
             {i18n.t('main.heading')}
         </Heading>
-        {mapId.length !== 0 && 
+        {mapId && mapId?.length !== 0 && 
         <>
             <Box>
                 <Text>{i18n.t('main.p1p4p7p11_1')} <b>{i18n.t('main.p1bold1')}</b> {i18n.t('main.p1_2')}<b> {activeUsersEngagement.toFixed(2)}%</b></Text>
